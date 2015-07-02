@@ -8,6 +8,7 @@ var b_out = document.getElementById("moreOut");
 var b_roll = document.getElementById("roll");
 var b_more = document.getElementById("buyMore");
 var b_less = document.getElementById("buyLess");
+var b_buy = document.getElementById("buy");
 
 // Game variables
 var dice = 1;
@@ -58,7 +59,17 @@ function rollDice() {
       pots -= potsOut;
     }
 
+    // Update the profit and pots bought cells
     playTable.rows[day].cells[4].innerHTML = profit;
+    playTable.rows[day].cells[5].innerHTML = 0;
+
+    // Swap the in/out/roll buttons to inactive and buy buttons to active
+    b_in.className = "button inactive";
+    b_out.className = "button inactive";
+    b_roll.className = "button inactive";
+    b_more.className = "button";
+    b_less.className = "button";
+    b_buy.className = "button";
   }
 }
 
@@ -74,6 +85,32 @@ function buyLess() {
   if (potsBuying > 0 && !b_less.classList.contains("inactive")) {
     potsBuying--;
     playTable.rows[day].cells[5].innerHTML = potsBuying;
+  }
+}
+
+function buy() {
+  if (!b_buy.classList.contains("inactive")) {
+
+    // Confirm the pots bought and update variable and table with this
+    money -= potsBuying * 5;
+    playTable.rows[day].cells[6].innerHTML = money;
+    pots += potsBuying;
+    console.log(pots);
+
+    // Also swap button inactivity again
+    b_in.className = "button";
+    b_out.className = "button";
+    b_roll.className = "button";
+    b_more.className = "button inactive";
+    b_less.className = "button inactive";
+    b_buy.className = "button inactive";
+
+    // Make it the next day, reset variables and add another row
+    day++;
+    potsIn = pots;
+    potsOut = 0;
+    potsBuying = 0;
+    updateSheet();
   }
 }
 
