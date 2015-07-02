@@ -10,6 +10,7 @@ var day = 1;
 var pots = 5;
 var potsIn = 5;
 var potsOut = 0;
+var money = 0;
 
 function moreIn() {
   if (potsIn < pots) {
@@ -28,9 +29,29 @@ function moreOut() {
 }
 
 function rollDice() {
+
+  var profit;
+
   // Do the actual roll
   dice = Math.ceil(Math.random() * 6);
   console.log(dice);
+
+  // Is it fine or stormy?
+  if (dice === 2 | dice === 4 | dice === 6) {
+
+    playTable.rows[day].cells[3].innerHTML = " Fine ";
+    profit = potsIn + 6 * potsOut;
+    money += profit;
+
+  } else {
+
+    playTable.rows[day].cells[3].innerHTML = "Stormy";
+    profit = 3 * potsIn;
+    money += profit;
+    pots -= potsOut;
+  }
+
+  playTable.rows[day].cells[4].innerHTML = profit;
 }
 
 function updateSheet() {
