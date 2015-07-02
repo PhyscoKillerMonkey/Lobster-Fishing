@@ -3,6 +3,11 @@
 
 // HTML Elements
 var playTable = document.getElementById("playTable");
+var b_in = document.getElementById("moreIn");
+var b_out = document.getElementById("moreOut");
+var b_roll = document.getElementById("roll");
+var b_more = document.getElementById("buyMore");
+var b_less = document.getElementById("buyLess");
 
 // Game variables
 var dice = 1;
@@ -11,9 +16,10 @@ var pots = 5;
 var potsIn = 5;
 var potsOut = 0;
 var money = 0;
+var potsBuying = 0;
 
 function moreIn() {
-  if (potsIn < pots) {
+  if (potsIn < pots && !b_in.classList.contains("inactive")) {
     potsIn++;
     potsOut--;
     updateSheet();
@@ -21,7 +27,7 @@ function moreIn() {
 }
 
 function moreOut() {
-  if (potsOut < pots) {
+  if (potsOut < pots && !b_out.classList.contains("inactive")) {
     potsOut++;
     potsIn--;
     updateSheet();
@@ -30,28 +36,45 @@ function moreOut() {
 
 function rollDice() {
 
-  var profit;
+  if (!b_roll.classList.contains("inactive")) {
+    var profit;
 
-  // Do the actual roll
-  dice = Math.ceil(Math.random() * 6);
-  console.log(dice);
+    // Do the actual roll
+    dice = Math.ceil(Math.random() * 6);
+    console.log(dice);
 
-  // Is it fine or stormy?
-  if (dice === 2 | dice === 4 | dice === 6) {
+    // Is it fine or stormy?
+    if (dice === 2 | dice === 4 | dice === 6) {
 
-    playTable.rows[day].cells[3].innerHTML = " Fine ";
-    profit = potsIn + 6 * potsOut;
-    money += profit;
+      playTable.rows[day].cells[3].innerHTML = " Fine ";
+      profit = potsIn + 6 * potsOut;
+      money += profit;
 
-  } else {
+    } else {
 
-    playTable.rows[day].cells[3].innerHTML = "Stormy";
-    profit = 3 * potsIn;
-    money += profit;
-    pots -= potsOut;
+      playTable.rows[day].cells[3].innerHTML = "Stormy";
+      profit = 3 * potsIn;
+      money += profit;
+      pots -= potsOut;
+    }
+
+    playTable.rows[day].cells[4].innerHTML = profit;
   }
+}
 
-  playTable.rows[day].cells[4].innerHTML = profit;
+function buyMore() {
+  if ((potsBuying + 1) * 5 <= money && !b_more.classList.contains("inactive")) {
+    potsBuying++;
+    playTable.rows[day].cells[5].innerHTML = potsBuying;
+    console.log("Buying more pots");
+  }
+}
+
+function buyLess() {
+  if (potsBuying > 0 && !b_less.classList.contains("inactive")) {
+    potsBuying--;
+    playTable.rows[day].cells[5].innerHTML = potsBuying;
+  }
 }
 
 function updateSheet() {

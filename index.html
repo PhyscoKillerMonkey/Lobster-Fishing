@@ -37,8 +37,17 @@
       font-size: 1.6rem;
     }
 
+    .inactive {
+      background-color: #BDBDBD;
+      color: #E0E0E0;
+    }
+
     #buttonContainer {
-      float: right;
+      float: left;
+    }
+
+    #topContainer {
+      height: 82px;
     }
 
     table {
@@ -54,6 +63,18 @@
 
     #payoutTable {
       display: inline-block;
+      float: left;
+    }
+
+    #messageDisplay {
+      display: inline-block;
+      background: #E1F5FE;
+      border: 4px solid #81D4FA;
+      padding: 10px;
+      margin: 10px 0 0 -4px;
+      float: left;
+      height: 32px;
+      width: 55%;
     }
 
     #playTable {
@@ -107,11 +128,15 @@
       </tr>
     </table>
 
-    <div id="buttonContainer">
-      <div class="button" onclick="moreIn()">More In</div>
-      <div class="button" onclick="moreOut()">More Out</div>
-      <div class="button" onclick="rollDice()">Roll!</div>
-    </div>
+    <div id="messageDisplay">Welcome to lobster fishing!</div>
+  </div>
+
+  <div id="buttonContainer">
+    <div class="button" id="moreIn" onclick="moreIn()">More In</div>
+    <div class="button" id="moreOut" onclick="moreOut()">More Out</div>
+    <div class="button" id="roll" onclick="rollDice()">Roll!</div>
+    <div class="button inactive" id="buyMore" onclick="buyMore()">Buy More</div>
+    <div class="button inactive" id="buyLess" onclick="buyLess()">Buy Less</div>
   </div>
 
   <table id="playTable">
