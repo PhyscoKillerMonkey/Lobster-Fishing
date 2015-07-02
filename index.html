@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+
+  <title>Lobster Fishing</title>
+
+  <style>
+
+    html { font-size: 62.5%;} /* Make 1 rem = 10px */
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      font-size: 1.3rem;
+      max-width: 600px;
+      margin: 10px auto;
+      background: #B3E5FC;
+
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    .button {
+      background-color: #1cf;
+      margin: 10px 0 10px 10px;
+      border-radius: 10px;
+      padding: 10px;
+      display: inline-block;
+      cursor: pointer;
+
+      text-transform: uppercase;
+      font-weight: 500;
+      font-size: 1.6rem;
+    }
+
+    #buttonContainer {
+      float: right;
+    }
+
+    table {
+      background: #E1F5FE;
+      border: 2px solid #81D4FA;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      border: 2px solid #81D4FA;
+      padding: 4px;
+    }
+
+    #payoutTable {
+      display: inline-block;
+    }
+
+    #playTable {
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    /*.diceIndicator {
+      background-color: #ddd;
+      margin: 10px 10px 10px 0;
+      border: solid #fff;
+      border-radius: 10px;
+      padding: 10px;
+      display: inline-block;
+      float: right;
+      cursor: pointer;
+    }
+
+    #messageCon {
+      background-color: #555;
+      margin: 0 10px 10px 10px;
+      border-radius: 10px;
+      padding: 10px;
+      color: #fff;
+    }*/
+
+  </style>
+
+  <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,500' rel='stylesheet' type='text/css'>
+
+</head>
+
+<body>
+
+  <div id="topContainer">
+    <table id="payoutTable">
+      <tr>
+        <th>Weather</th>
+        <th>In-Shore</th>
+        <th>Off-Shore</th>
+      </tr>
+      <tr>
+        <th>Fine</th>
+        <td>1</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <th>Stormy</th>
+        <td>3</td>
+        <td>Destroyed</td>
+    </table>
+
+    <div id="buttonContainer">
+      <div class="button">More In</div>
+      <div class="button">More Out</div>
+      <div class="button">Roll!</div>
+    </div>
+  </div>
+
+  <table id="playTable">
+    <tr>
+      <th>Day</th>
+      <th>In-Shore</th>
+      <th>Off-Shore</th>
+      <th>Weather</th>
+      <th>Profit</th>
+      <th>Pots Bought</th>
+      <th>Bank Balance</th>
+    </tr>
+    <tr></tr>
+  </table>
+
+  <script src="main.js"></script>
+
+</body>
+</html>
