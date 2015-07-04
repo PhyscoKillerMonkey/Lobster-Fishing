@@ -1,4 +1,4 @@
-/* jshint devel: true */
+/* jshint devel: true, globalstrict: true, browser: true, esnext: true, curly: true, noarg: true, undef: true, unused: vars */
 "use strict";
 
 // HTML Elements
