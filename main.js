@@ -77,7 +77,6 @@ function buyMore() {
   if ((potsBuying + 1) * 5 <= money && !b_more.classList.contains("inactive")) {
     potsBuying++;
     playTable.rows[day].cells[5].innerHTML = potsBuying;
-    console.log("Buying more pots");
   }
 }
 
