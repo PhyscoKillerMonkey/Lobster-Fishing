@@ -1,4 +1,4 @@
-/* jshint devel: true, globalstrict: true, browser: true, esnext: true, curly: true, noarg: true, undef: true, unused: vars */
+/* jshint devel: true, globalstrict: true, browser: true, esnext: true, curly: true, noarg: true, undef: true, unused: false */
 "use strict";
 
 // HTML Elements
@@ -19,7 +19,7 @@ var potsOut = 0;
 var money = 0;
 var potsBuying = 0;
 
-function moreIn() {
+function morePotsIn() {
   if (potsIn < pots && !b_in.classList.contains("inactive")) {
     potsIn++;
     potsOut--;
@@ -27,7 +27,7 @@ function moreIn() {
   }
 }
 
-function moreOut() {
+function morePotsOut() {
   if (potsOut < pots && !b_out.classList.contains("inactive")) {
     potsOut++;
     potsIn--;
