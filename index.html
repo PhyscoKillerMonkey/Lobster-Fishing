@@ -40,6 +40,7 @@
     .inactive {
       background-color: #BDBDBD;
       color: #E0E0E0;
+      cursor: default;
     }
 
     #buttonContainer {
@@ -59,6 +60,7 @@
     th, td {
       border: 2px solid #81D4FA;
       padding: 4px;
+      text-align: center;
     }
 
     #payoutTable {
@@ -119,7 +121,7 @@
   </div>
 
   <div id="buttonContainer">
-    <div class="button" id="moreIn" onclick="morePotsIn()">More In</div>
+    <div class="button inactive" id="moreIn" onclick="morePotsIn()">More In</div>
     <div class="button" id="moreOut" onclick="morePotsOut()">More Out</div>
     <div class="button" id="roll" onclick="rollDice()">Roll!</div>
     <div class="button inactive" id="buyLess" onclick="buyLess()">Buy Less</div>

@@ -25,6 +25,10 @@ function morePotsIn() {
     potsIn++;
     potsOut--;
     updateSheet();
+
+    // Make buttons active/inactive
+    b_out.className = "button";
+    if (potsOut === 0) { b_in.className = "button inactive"; }
   }
 }
 
@@ -33,6 +37,10 @@ function morePotsOut() {
     potsOut++;
     potsIn--;
     updateSheet();
+
+    // Make buttons active/inactive
+    b_in.className = "button";
+    if (potsIn === 0) { b_out.className = "button inactive"; }
   }
 }
 
@@ -67,7 +75,7 @@ function rollDice() {
     }
 
     // Update the profit and pots bought cells
-    playTable.rows[day].cells[4].innerHTML = profit;
+    playTable.rows[day].cells[4].innerHTML = "&pound" + profit;
     playTable.rows[day].cells[5].innerHTML = 0;
 
     // Swap the in/out/roll buttons to inactive and buy buttons to active
@@ -109,7 +117,7 @@ function buy() {
 
     // Confirm the pots bought and update variable and table with this
     money -= potsBuying * 5;
-    playTable.rows[day].cells[6].innerHTML = money;
+    playTable.rows[day].cells[6].innerHTML = "&pound" + money;
     pots += potsBuying;
     console.log(pots);
 
