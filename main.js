@@ -75,8 +75,10 @@ function rollDice() {
     b_out.className = "button inactive";
     b_roll.className = "button inactive";
     b_more.className = "button";
-    b_less.className = "button";
-    b_buy.className = "button";
+    //b_less.className = "button";
+    if ((potsBuying + 1) * 5 <= money) {
+      b_buy.className = "button";
+    }
   }
 }
 
@@ -84,6 +86,10 @@ function buyMore() {
   if ((potsBuying + 1) * 5 <= money && !b_more.classList.contains("inactive")) {
     potsBuying++;
     playTable.rows[day].cells[5].innerHTML = potsBuying;
+
+    // Make buyLess button active and more inactive if cannot buy more
+    b_less.className = "button";
+    if ((potsBuying + 1) * 5 > money) { b_more.className = "button inactive"; }
   }
 }
 
@@ -91,6 +97,10 @@ function buyLess() {
   if (potsBuying > 0 && !b_less.classList.contains("inactive")) {
     potsBuying--;
     playTable.rows[day].cells[5].innerHTML = potsBuying;
+
+    // Make buyMore button active and if pots buying = 0, less inactive
+    b_more.className = "button";
+    if (potsBuying === 0) { b_less.className = "button inactive"; }
   }
 }
 
