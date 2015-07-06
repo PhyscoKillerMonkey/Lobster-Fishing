@@ -2,6 +2,7 @@
 "use strict";
 
 // HTML Elements
+var message = document.getElementById("messageDisplayInner");
 var playTable = document.getElementById("playTable");
 var b_in = document.getElementById("moreIn");
 var b_out = document.getElementById("moreOut");
@@ -129,6 +130,9 @@ function updateSheet() {
 
     // Insert the day number into the first cell
     playTable.rows[day].cells[0].innerHTML = day;
+
+    // Instruct user to move pots in/out
+    message.innerHTML += "<br>Move your pots around with <b>MORE IN</b> & <B>MORE OUT</b>.<br>Then roll the dice with <b>ROLL!</b>";
   }
 
   // Update the In-Shore and Off-Shore pot numbers
