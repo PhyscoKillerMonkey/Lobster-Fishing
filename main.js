@@ -52,12 +52,18 @@ function rollDice() {
       profit = potsIn + 6 * potsOut;
       money += profit;
 
+      message.innerHTML = "The weather is fine.<br>You've made &pound" + profit +
+      " giving you a total of &pound" + money;
+
     } else {
 
       playTable.rows[day].cells[3].innerHTML = "Stormy";
       profit = 3 * potsIn;
       money += profit;
       pots -= potsOut;
+
+      message.innerHTML = "The weather is stormy.<br>You've made &pound" + profit +
+      " giving you a total of &pound" + money + " <br>You lost " + potsOut + " pots at sea.";
     }
 
     // Update the profit and pots bought cells
