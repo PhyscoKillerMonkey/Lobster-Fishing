@@ -121,11 +121,17 @@ function buy() {
     b_less.className = "button inactive";
     b_buy.className = "button inactive";
 
-    // Make it the next day, reset variables and add another row
+    // Make it the next day, reset variables
     day++;
     potsIn = pots;
     potsOut = 0;
     potsBuying = 0;
+
+    // Update the message
+    message.innerHTML = "It's day " + day + ". You have &pound" + money +
+    " and " + pots + " pots.";
+
+    // Add the next row
     updateSheet();
   }
 }
