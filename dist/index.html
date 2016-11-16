@@ -5,33 +5,11 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Lobster Fishing</title>
     <link rel="stylesheet" href="style.css" type="text/css">
+    <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
+    <script src="main.js"></script>
   </head>
 
-  <body>
-    <table id="statusBar">
-      <tr>
-        <th>Money</th>
-        <th>In</th>
-        <th>Out</th>
-        <th>Total</th>
-        <th>Day</th>
-      </tr>
-      <tr>
-        <td id="statusMoney">0</td>
-        <td id="statusPotsIn">0</td>
-        <td id="statusPotsOut">0</td>
-        <td id="statusPotsTot">0</td>
-        <td id="statusDay">0</td>
-      </tr>
-    </table>
-
-    <div id="controls">
-      <button onclick="act('potIn')">In</button>
-      <button onclick="act('potOut')">Out</button>
-      <button onclick="act('buyPot')">Buy</button>
-      <button onclick="act('doTurn')">Go</button>
-    </div>
-    
-    <script src="main.js"></script>
+  <body onload="init()">
+    <canvas id="canvas" width="500" height="300"></canvas>
   </body>
 </html>
