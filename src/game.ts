@@ -56,6 +56,8 @@ class Game {
       this.pots -= this.potsOut;
       this.potsOut = 0; 
     }
+
+    this.day++;
   }
 
   public buyPots(n: number): boolean {
