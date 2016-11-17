@@ -58,28 +58,32 @@ var Game = (function () {
     };
     return Game;
 }());
+// PIXI.js Aliases
+var resources = PIXI.loader.resources;
+// Keep those crisp pixels
+PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 function byID(id) {
     return document.getElementById(id);
 }
 var g = new Game();
-function init() {
-    var stage = new createjs.Stage("canvas");
-    var sWidth = stage.canvas.width;
-    var sHeight = stage.canvas.height;
-    var sceneSea = new createjs.Container();
-    var sky = new createjs.Shape();
-    sky.graphics.lf(["#3498DB", "#FAD7A0"], [0, 1], 0, 0, 0, sHeight * .75).drawRect(0, 0, sWidth, sHeight);
-    var mountains = new createjs.Shape();
-    mountains.graphics.beginFill("#229954")
-        .mt(0, sHeight * .75)
-        .lt(sWidth * .4, sHeight * .6)
-        .lt(sWidth * .6, sHeight * .7)
-        .lt(sWidth * .8, sHeight * .65)
-        .lt(sWidth, sHeight * .75)
-        .lt(sWidth, sHeight)
-        .lt(0, sHeight);
-    sceneSea.addChild(sky, mountains);
-    stage.addChild(sceneSea);
-    stage.update();
+// Create the renderer
+var renderer = PIXI.autoDetectRenderer(250, 150, {
+    antialias: false,
+    roundPixels: true
+});
+// Add the canvas to the body
+document.body.appendChild(renderer.view);
+// Load the textures
+PIXI.loader
+    .add("assets/background.png")
+    .load(setup);
+// Once loading is finished run this function
+function setup() {
+    // Create the stage
+    var stage = new PIXI.Container();
+    var background = new PIXI.Sprite(resources["assets/background.png"].texture);
+    stage.addChild(background);
+    // Render the stage
+    renderer.render(stage);
 }
 //# sourceMappingURL=main.js.map

@@ -1,30 +1,40 @@
+// PIXI.js Aliases
+let resources = PIXI.loader.resources;
+
+// Keep those crisp pixels
+PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
+
 function byID(id: string): HTMLElement {
   return document.getElementById(id);
 }
   
 let g = new Game();
 
-function init() {
-  let stage = new createjs.Stage("canvas");
-  let sWidth = (<HTMLCanvasElement>stage.canvas).width;
-  let sHeight = (<HTMLCanvasElement>stage.canvas).height;
+// Create the renderer
+let renderer = PIXI.autoDetectRenderer(250, 150, {
+  antialias: false,
+  roundPixels: true
+});
 
-  let sceneSea = new createjs.Container();
+// Add the canvas to the body
+document.body.appendChild(renderer.view);
 
-  let sky = new createjs.Shape();
-  sky.graphics.lf(["#3498DB", "#FAD7A0"], [0, 1], 0, 0, 0, sHeight*.75).drawRect(0, 0, sWidth, sHeight);
+// Load the textures
+PIXI.loader
+  .add("assets/background.png")
+  .load(setup);
 
-  let mountains = new createjs.Shape();
-  mountains.graphics.beginFill("#229954")
-    .mt(0, sHeight*.75)
-    .lt(sWidth*.4, sHeight*.6)
-    .lt(sWidth*.6, sHeight*.7)
-    .lt(sWidth*.8, sHeight*.65)
-    .lt(sWidth, sHeight*.75)
-    .lt(sWidth, sHeight)
-    .lt(0, sHeight);
+// Once loading is finished run this function
+function setup() {
+  // Create the stage
+  let stage = new PIXI.Container();
 
-  sceneSea.addChild(sky, mountains);
-  stage.addChild(sceneSea);
-  stage.update();
+  let background = new PIXI.Sprite(
+    resources["assets/background.png"].texture
+  );
+
+  stage.addChild(background);
+
+  // Render the stage
+  renderer.render(stage);
 }
