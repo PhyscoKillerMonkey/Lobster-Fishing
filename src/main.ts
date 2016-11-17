@@ -1,20 +1,24 @@
 // PIXI.js Aliases
 let resources = PIXI.loader.resources;
 
-// Keep those crisp pixels
-PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
-
 function byID(id: string): HTMLElement {
   return document.getElementById(id);
 }
   
 let g = new Game();
 
+let WIDTH = 250;
+let HEIGHT = 150;
+let SCALE = 3;
+
 // Create the renderer
-let renderer = PIXI.autoDetectRenderer(250, 150, {
+let renderer = PIXI.autoDetectRenderer( WIDTH, HEIGHT, {
   antialias: false,
   roundPixels: true
 });
+// Resize of the canvas
+renderer.view.style.width = WIDTH * SCALE + "px";
+renderer.view.style.height = HEIGHT * SCALE + "px";
 
 // Add the canvas to the body
 document.body.appendChild(renderer.view);

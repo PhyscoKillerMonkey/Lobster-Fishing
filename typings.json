@@ -1,6 +1,5 @@
 {
   "globalDependencies": {
-    "easeljs": "registry:dt/easeljs#0.8.0+20161006171648",
     "pixi.js": "registry:dt/pixi.js#3.0.9+20161102214427"
   }
 }

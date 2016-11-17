@@ -60,17 +60,21 @@ var Game = (function () {
 }());
 // PIXI.js Aliases
 var resources = PIXI.loader.resources;
-// Keep those crisp pixels
-PIXI.SCALE_MODES.DEFAULT = PIXI.SCALE_MODES.NEAREST;
 function byID(id) {
     return document.getElementById(id);
 }
 var g = new Game();
+var WIDTH = 250;
+var HEIGHT = 150;
+var SCALE = 3;
 // Create the renderer
-var renderer = PIXI.autoDetectRenderer(250, 150, {
+var renderer = PIXI.autoDetectRenderer(WIDTH, HEIGHT, {
     antialias: false,
     roundPixels: true
 });
+// Resize of the canvas
+renderer.view.style.width = WIDTH * SCALE + "px";
+renderer.view.style.height = HEIGHT * SCALE + "px";
 // Add the canvas to the body
 document.body.appendChild(renderer.view);
 // Load the textures
