@@ -58,13 +58,44 @@ var Game = (function () {
     };
     return Game;
 }());
+function keyboard(keyCode) {
+    var key = {
+        code: keyCode,
+        isDown: false,
+        isUp: true,
+        press: undefined,
+        release: undefined,
+        downHandler: function (event) {
+            if (event.keyCode === key.code) {
+                if (key.isUp && key.press)
+                    key.press();
+                key.isDown = true;
+                key.isUp = false;
+            }
+            event.preventDefault();
+        },
+        upHandler: function (event) {
+            if (event.keyCode === key.code) {
+                if (key.isDown && key.release)
+                    key.release();
+                key.isDown = false;
+                key.isUp = true;
+            }
+            event.preventDefault();
+        }
+    };
+    //Attach event listeners
+    window.addEventListener("keydown", key.downHandler.bind(key), false);
+    window.addEventListener("keyup", key.upHandler.bind(key), false);
+    return key;
+}
 // PIXI.js Aliases
 var resources = PIXI.loader.resources;
 function byID(id) {
     return document.getElementById(id);
 }
 var g = new Game();
-var WIDTH = 250;
+var WIDTH = 100;
 var HEIGHT = 150;
 var SCALE = 3;
 // Create the renderer
@@ -79,15 +110,50 @@ renderer.view.style.height = HEIGHT * SCALE + "px";
 document.body.appendChild(renderer.view);
 // Load the textures
 PIXI.loader
-    .add("assets/background.png")
+    .add([
+    "assets/sky.png",
+    "assets/ground.png",
+    "assets/boat.png"])
     .load(setup);
 // Once loading is finished run this function
 function setup() {
     // Create the stage
     var stage = new PIXI.Container();
-    var background = new PIXI.Sprite(resources["assets/background.png"].texture);
-    stage.addChild(background);
-    // Render the stage
-    renderer.render(stage);
+    var sky = new PIXI.Sprite(resources["assets/sky.png"].texture);
+    stage.addChild(sky);
+    var ground = new PIXI.Sprite(resources["assets/ground.png"].texture);
+    stage.addChild(ground);
+    var boat = new PIXI.Sprite(resources["assets/boat.png"].texture);
+    boat.anchor.set(0.6, 0.5);
+    boat.x = renderer.view.width * 0.5;
+    boat.y = 120;
+    stage.addChild(boat);
+    var boatVX = 0;
+    var boatVel = 1;
+    var screenOff = 0;
+    var leftKey = keyboard(37);
+    leftKey.press = function () {
+        boatVX -= boatVel;
+    };
+    leftKey.release = function () {
+        boatVX += boatVel;
+    };
+    var rightKey = keyboard(39);
+    rightKey.press = function () {
+        boatVX += boatVel;
+    };
+    rightKey.release = function () {
+        boatVX -= boatVel;
+    };
+    function gameLoop() {
+        requestAnimationFrame(gameLoop);
+        // Update the screen position
+        screenOff -= boatVX;
+        sky.x = screenOff * 0.5;
+        ground.x = screenOff;
+        // Render the stage
+        renderer.render(stage);
+    }
+    gameLoop();
 }
 //# sourceMappingURL=main.js.map
