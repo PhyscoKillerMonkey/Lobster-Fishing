@@ -7,7 +7,7 @@ function byID(id: string): HTMLElement {
   
 let g = new Game();
 
-let WIDTH = 100;
+let WIDTH = 250;
 let HEIGHT = 150;
 let SCALE = 3;
 

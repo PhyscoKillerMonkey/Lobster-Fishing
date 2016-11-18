@@ -95,7 +95,7 @@ function byID(id) {
     return document.getElementById(id);
 }
 var g = new Game();
-var WIDTH = 100;
+var WIDTH = 250;
 var HEIGHT = 150;
 var SCALE = 3;
 // Create the renderer
