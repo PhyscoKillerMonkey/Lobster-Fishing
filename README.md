@@ -8,3 +8,6 @@ You can play the game in it's current state [here](http://r-bennett.com/lobster-
 - Make the week end at some point
 - Button hover/click effects
 - Better in-game help to guide new players
+
+## Art References/Insparation
+[Harbor town with mountains](http://c8.alamy.com/comp/DR1WJ1/greenland-kangaamiut-town-harbor-houses-mountains-DR1WJ1.jpg)
