@@ -112,8 +112,15 @@ document.body.appendChild(renderer.view);
 PIXI.loader
     .add([
     "assets/sky.png",
-    "assets/ground.png",
-    "assets/boat.png"])
+    "assets/clouds.png",
+    "assets/foreground.png",
+    "assets/mountains.png",
+    "assets/boat.png",
+    "assets/boatOutline.png",
+    "assets/dock/ground.png",
+    "assets/dock/mountains.png",
+    "assets/dock/shop.png",
+    "assets/dock/shopOutline.png"])
     .load(setup);
 // Once loading is finished run this function
 function setup() {
@@ -121,36 +128,28 @@ function setup() {
     var stage = new PIXI.Container();
     var sky = new PIXI.Sprite(resources["assets/sky.png"].texture);
     stage.addChild(sky);
-    var ground = new PIXI.Sprite(resources["assets/ground.png"].texture);
-    stage.addChild(ground);
+    var clouds = new PIXI.Sprite(resources["assets/clouds.png"].texture);
+    stage.addChild(clouds);
+    var mountains = new PIXI.Sprite(resources["assets/dock/mountains.png"].texture);
+    stage.addChild(mountains);
     var boat = new PIXI.Sprite(resources["assets/boat.png"].texture);
-    boat.anchor.set(0.6, 0.5);
-    boat.x = renderer.view.width * 0.5;
-    boat.y = 120;
+    var boatOutline = new PIXI.Sprite(resources["assets/boatOutline.png"].texture);
+    boat.interactive = true;
+    boat.on("mouseover", function () {
+        boat.texture = resources["assets/boatOutline.png"].texture;
+    });
+    boat.on("mouseout", function () {
+        boat.texture = resources["assets/boat.png"].texture;
+    });
     stage.addChild(boat);
-    var boatVX = 0;
-    var boatVel = 1;
-    var screenOff = 0;
-    var leftKey = keyboard(37);
-    leftKey.press = function () {
-        boatVX -= boatVel;
-    };
-    leftKey.release = function () {
-        boatVX += boatVel;
-    };
-    var rightKey = keyboard(39);
-    rightKey.press = function () {
-        boatVX += boatVel;
-    };
-    rightKey.release = function () {
-        boatVX -= boatVel;
-    };
+    var ground = new PIXI.Sprite(resources["assets/dock/ground.png"].texture);
+    stage.addChild(ground);
+    var shop = new PIXI.Sprite(resources["assets/dock/shop.png"].texture);
+    var shopOutline = new PIXI.Sprite(resources["assets/dock/shopOutline.png"].texture);
+    shopOutline.visible = false;
+    stage.addChild(shop);
     function gameLoop() {
         requestAnimationFrame(gameLoop);
-        // Update the screen position
-        screenOff -= boatVX;
-        sky.x = screenOff * 0.5;
-        ground.x = screenOff;
         // Render the stage
         renderer.render(stage);
     }
