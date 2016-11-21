@@ -4,6 +4,7 @@ class DockState extends Phaser.State {
   clouds: Phaser.Sprite;
   mountains: Phaser.Sprite;
   boat: Phaser.Sprite;
+  boatCollision: Phaser.Sprite;
   ground: Phaser.Sprite;
   shop: Phaser.Sprite;
 
@@ -13,14 +14,20 @@ class DockState extends Phaser.State {
     
     this.mountains = this.add.sprite(0, 0, "dockMountains");
 
-    this.boat = this.add.sprite(166, 112, "boat");
-    this.boat.inputEnabled = true;
-    this.boat.input.pixelPerfectOver = true;
-    this.boat.events.onInputOver.add(function() {
+    this.boat = this.add.sprite(166, 111, "boat");
+    // Use a white sprite to still get mouseover on the windows
+    this.boatCollision = this.add.sprite(this.boat.x, this.boat.y, "boatCollision");
+    this.boatCollision.alpha = 0;
+    this.boatCollision.inputEnabled = true;
+    this.boatCollision.input.pixelPerfectOver = true;
+    this.boatCollision.events.onInputOver.add(function() {
       this.boat.loadTexture("boatOutline");
     }, this);
-    this.boat.events.onInputOut.add(function() {
+    this.boatCollision.events.onInputOut.add(function() {
       this.boat.loadTexture("boat");
+    }, this);
+    this.boatCollision.events.onInputDown.add(function() {
+      console.log("Boat was clicked");
     }, this);
 
     this.ground = this.add.sprite(0, 0, "dockGround");
@@ -33,6 +40,9 @@ class DockState extends Phaser.State {
     }, this);
     this.shop.events.onInputOut.add(function() {
       this.shop.loadTexture("dockShop");
+    }, this);
+    this.shop.events.onInputDown.add(function() {
+      console.log("Shop was clicked");
     }, this);
 
     // Fade from black
