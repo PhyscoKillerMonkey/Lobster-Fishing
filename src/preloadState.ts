@@ -12,6 +12,8 @@ class PreloadState extends Phaser.State {
     // Load the actual game sprites
     this.load.image("dockGround", "assets/dock/ground.png");
     this.load.image("dockMountains", "assets/dock/mountains.png");
+    this.load.image("dockPots", "assets/dock/pots.png");
+    this.load.image("dockPotsOutline", "assets/dock/potsOutline.png");
     this.load.image("dockShop", "assets/dock/shop.png");
     this.load.image("dockShopOutline", "assets/dock/shopOutline.png");
     this.load.image("sky", "assets/sky.png");
