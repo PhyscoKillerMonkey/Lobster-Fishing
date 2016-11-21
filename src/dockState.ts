@@ -41,9 +41,6 @@ class DockState extends Phaser.State {
     this.boatCollision = this.add.sprite(this.boat.x, this.boat.y, "boatCollision");
     this.boatCollision.alpha = 0;
     addOutline(this.boatCollision, "boat", "boatOutline", this.boat);
-    this.boatCollision.events.onInputDown.add(function() {
-      console.log("Boat was clicked");
-    }, this);
 
     this.ground = this.add.sprite(0, 0, "dockGround");
 
@@ -52,8 +49,15 @@ class DockState extends Phaser.State {
 
     this.shop = this.add.sprite(5, 99, "dockShop");
     addOutline(this.shop, "dockShop", "dockShopOutline");
+
+    this.boatCollision.events.onInputDown.add(function() {
+      console.log("Boat was clicked");
+    }, this);
     this.shop.events.onInputDown.add(function() {
       console.log("Shop was clicked");
+    }, this);
+    this.pots.events.onInputDown.add(function() {
+      console.log("Pots were clicked");
     }, this);
 
     // Fade from black
