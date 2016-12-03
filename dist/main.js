@@ -33,30 +33,31 @@ var DockState = (function (_super) {
         _super.apply(this, arguments);
     }
     DockState.prototype.create = function () {
-        this.sky = this.add.graphics(0, 0);
-        this.sky.beginFill(0x5DB4F2);
-        this.sky.drawRect(0, 0, this.game.width * 2, this.game.height);
-        this.ground = this.add.graphics(0, this.game.height - 40);
-        this.ground.beginFill(0xA27D29);
-        this.ground.drawRect(0, 0, this.game.width * 2, 40);
-        this.boat = this.add.sprite(10, 80);
-        this.boat.addChild(this.add.graphics(0, 0).beginFill(0xFFA458).drawRect(0, 0, 60, 40));
-        this.shop = this.add.sprite(250, 70);
-        this.shop.addChild(this.add.graphics(0, 0).beginFill(0xFFA458).drawRect(0, 0, 80, 50));
+        this.sky = this.add.sprite(0, 0, "new");
         this.cameraFocus = this.add.sprite(0, this.game.height / 2);
         this.cameraFocus.addChild(this.add.graphics(0, 0).beginFill(0xFF5722).drawRect(0, 0, 5, 5));
-        this.world.setBounds(0, 0, this.game.width * 2, this.game.height);
-        this.camera.follow(this.cameraFocus, Phaser.Camera.FOLLOW_LOCKON, 0.5);
+        this.world.setBounds(0, 0, this.game.width * 4, this.game.height);
+        this.camera.follow(this.cameraFocus, Phaser.Camera.FOLLOW_LOCKON, 0.2);
+        this.cls = [200, 290, 345, 600];
+        this.cl = 0;
+        var leftKey = this.input.keyboard.addKey(37);
+        var rightKey = this.input.keyboard.addKey(39);
+        leftKey.onDown.add(function () {
+            this.cl--;
+            if (this.cl < 0) {
+                this.cl = 0;
+            }
+            this.cameraFocus.x = this.cls[this.cl];
+        }, this);
+        rightKey.onDown.add(function () {
+            this.cl++;
+            if (this.cl >= this.cls.length) {
+                this.cl = this.cls.length - 1;
+            }
+            this.cameraFocus.x = this.cls[this.cl];
+        }, this);
         // Fade from black
         this.camera.flash(0x000);
-    };
-    DockState.prototype.update = function () {
-        if (this.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-            this.cameraFocus.x -= 5;
-        }
-        else if (this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-            this.cameraFocus.x += 5;
-        }
     };
     DockState.prototype.render = function () {
         this.game.debug.cameraInfo(this.game.camera, 5, 5);
@@ -191,6 +192,7 @@ var PreloadState = (function (_super) {
         this.load.image("boat", "assets/boat.png");
         this.load.image("boatOutline", "assets/boatOutline.png");
         this.load.image("boatCollision", "assets/boatCollision.png");
+        this.load.image("new", "assets/new.png");
     };
     PreloadState.prototype.create = function () {
         console.log("Preload create");
