@@ -1,66 +1,45 @@
 class DockState extends Phaser.State {
-
-  sky: Phaser.Sprite;
-  clouds: Phaser.Sprite;
-  mountains: Phaser.Sprite;
+  
+  sky: Phaser.Graphics;
+  ground: Phaser.Graphics;
   boat: Phaser.Sprite;
-  boatCollision: Phaser.Sprite;
-  ground: Phaser.Sprite;
-  pots: Phaser.Sprite;
   shop: Phaser.Sprite;
+  cameraFocus: Phaser.Sprite;
 
   create() {
-    this.sky = this.add.sprite(0, 0, "sky");
-    this.clouds = this.add.sprite(0, 0, "clouds");
-    
-    this.mountains = this.add.sprite(0, 0, "dockMountains");
+    this.sky = this.add.graphics(0, 0);
+    this.sky.beginFill(0x5DB4F2);
+    this.sky.drawRect(0, 0, this.game.width*2, this.game.height);
 
-    // Helper funcion to add outline to a sprite on hover
-    function addOutline(sprite: Phaser.Sprite, normalKey: string, outlineKey: string, affects?: Phaser.Sprite) {
-      sprite.inputEnabled = true;
-      sprite.input.pixelPerfectOver = true
-      sprite.input.pixelPerfectClick = true;
-      sprite.events.onInputOver.add(function() {
-        if (affects) {
-          affects.loadTexture(outlineKey);
-        } else {
-          sprite.loadTexture(outlineKey);
-        }
-      });
-      sprite.events.onInputOut.add(function() {
-        if (affects) {
-          affects.loadTexture(normalKey);
-        } else {
-          sprite.loadTexture(normalKey);
-        }
-      });
-    }
-    
-    this.boat = this.add.sprite(166, 111, "boat");
-    // Use a white sprite to still get mouseover on the windows
-    this.boatCollision = this.add.sprite(this.boat.x, this.boat.y, "boatCollision");
-    this.boatCollision.alpha = 0;
-    addOutline(this.boatCollision, "boat", "boatOutline", this.boat);
+    this.ground = this.add.graphics(0, this.game.height - 40);
+    this.ground.beginFill(0xA27D29);
+    this.ground.drawRect(0, 0, this.game.width*2, 40);
 
-    this.ground = this.add.sprite(0, 0, "dockGround");
+    this.boat = this.add.sprite(10, 80);
+    this.boat.addChild(this.add.graphics(0, 0).beginFill(0xFFA458).drawRect(0, 0, 60, 40));
 
-    this.pots = this.add.sprite(144, 126, "dockPots");
-    addOutline(this.pots, "dockPots", "dockPotsOutline");
+    this.shop = this.add.sprite(250, 70);
+    this.shop.addChild(this.add.graphics(0, 0).beginFill(0xFFA458).drawRect(0, 0, 80, 50));
 
-    this.shop = this.add.sprite(5, 99, "dockShop");
-    addOutline(this.shop, "dockShop", "dockShopOutline");
+    this.cameraFocus = this.add.sprite(0, this.game.height / 2);
+    this.cameraFocus.addChild(this.add.graphics(0, 0).beginFill(0xFF5722).drawRect(0, 0, 5, 5));
 
-    this.boatCollision.events.onInputDown.add(function() {
-      console.log("Boat was clicked");
-    }, this);
-    this.shop.events.onInputDown.add(function() {
-      console.log("Shop was clicked");
-    }, this);
-    this.pots.events.onInputDown.add(function() {
-      console.log("Pots were clicked");
-    }, this);
+    this.world.setBounds(0, 0, this.game.width*2, this.game.height);
+    this.camera.follow(this.cameraFocus, Phaser.Camera.FOLLOW_LOCKON, 0.5);
 
     // Fade from black
     this.camera.flash(0x000);
+  }
+
+  update() {
+    if (this.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
+      this.cameraFocus.x -= 5;
+    } else if (this.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
+      this.cameraFocus.x += 5;
+    }
+  }
+
+  render() {
+    this.game.debug.cameraInfo(this.game.camera, 5, 5);
   }
 }
